@@ -1,6 +1,6 @@
 temp = require 'temp'
 
-describe "Atom API autocompletions", ->
+describe "Google Apps Script autocompletions", ->
   [editor, provider] = []
 
   getCompletions = ->
@@ -16,9 +16,9 @@ describe "Atom API autocompletions", ->
     provider.getSuggestions(request)
 
   beforeEach ->
-    waitsForPromise -> atom.packages.activatePackage('autocomplete-atom-api')
+    waitsForPromise -> atom.packages.activatePackage('autocomplete-gas')
     runs ->
-      provider = atom.packages.getActivePackage('autocomplete-atom-api').mainModule.getProvider()
+      provider = atom.packages.getActivePackage('autocomplete-gas').mainModule.getProvider()
     waitsFor -> Object.keys(provider.completions).length > 0
     waitsFor -> provider.packageDirectories?.length > 0
     waitsForPromise -> atom.workspace.open('test.js')

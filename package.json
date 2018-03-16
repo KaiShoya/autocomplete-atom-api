@@ -1,10 +1,10 @@
 {
-  "name": "autocomplete-atom-api",
-  "version": "0.10.7",
-  "description": "Atom API autocompletions",
+  "name": "autocomplete-gas",
+  "version": "0.11.0",
+  "description": "Google Apps Script autocompletions",
   "main": "./lib/main",
   "license": "MIT",
-  "repository": "https://github.com/atom/autocomplete-atom-api",
+  "repository": "https://github.com/KaiShoya/autocomplete-gas",
   "engines": {
     "atom": ">=0.174.0 <2.0.0"
   },
