@@ -1,6 +1,6 @@
 {
   "name": "autocomplete-gas",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "Google Apps Script autocompletions",
   "main": "./lib/main",
   "license": "MIT",
