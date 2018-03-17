@@ -19,30 +19,30 @@ def create_contents(url)
 	completions = {}
 	doc = get_html(url)
 	doc.css("table.member.type").each do |table|
+		toc_index = 0
 		table.css("tr").each do |tr|
 			name = nil
 			dist = nil
-			content_url = nil
 			tr.css("td").each_with_index do |td, i|
 				name = td.text.strip if i == 0
 				dist = td.text.strip if i == 1
-				content_url = td.css("a").attribute("href").text.strip if i == 0
 			end
 
 
 			unless name.nil?
-				print "#{name}..."
-				completions[name] = create_content(content_url) unless name.nil?
+				print "#{name}.."
+				completions[name] = create_content(doc.css("div.class.toc")[toc_index])
+				toc_index += 1
 				puts "#{completions[name].size}"
+				completions.delete(name) if completions[name].size == 0
 			end
 		end
 	end
 	return completions
 end
 
-def create_content(url)
+def create_content(doc)
 	contents = []
-	doc = get_html(url)
 	[["property","property"],["function","method"]].each do |classname, type|
 		doc.css("table.members.#{classname}").each do |table|
 			table.css("tr").each do |tr|
@@ -90,7 +90,6 @@ end
 def main
 	completions = {}
 	doc = get_html(DOC_URL)
-	## G Suite Service一覧からjson用配列データ作成
 	doc.xpath('//*[@id="gc-wrapper"]/div[2]/nav[1]/ul/li[1]/ul/li').each do |node|
 		node.children.each_with_index do |child, i|
 			next unless i == 0
@@ -98,6 +97,7 @@ def main
 			next unless child.css(".devsite-nav-icon-wrapper").first.nil?
 			puts "### #{child.text.strip}"
 			completions[child.text.strip] = create_contents("#{DOC_URL}#{child.text.strip.downcase}")
+			puts ""
 		end
 	end
 
