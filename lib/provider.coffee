@@ -6,7 +6,7 @@ CLASSES = require('../completions.json')
 propertyPrefixPattern = /(?:^|\[|\(|,|=|:|\s)\s*(atom\.(?:[a-zA-Z]+\.?){0,2})$/
 
 module.exports =
-  selector: '.source.coffee, .source.js'
+  selector: '.source.gs, .source.js'
   filterSuggestions: true
 
   getSuggestions: ({bufferPosition, editor}) ->

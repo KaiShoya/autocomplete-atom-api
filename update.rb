@@ -58,14 +58,14 @@ def create_content(doc)
 				tr.css("td").each_with_index do |td, i|
 					str = td.text.strip
 					if i == 0
-						content[:name] = str
+						snippet = str.split("(")
+						content[:name] = snippet[0]
 						a = td.css("a")
 						content[:descriptionMoreURL] = a.text.strip == "" ? nil : a.attribute("href").text.strip
 
 						if str.include?("()")
 							content[:text] = str
 						else
-							snippet = str.split("(")
 							unless snippet[1].nil?
 								parameters = []
 								snippet[1].delete(")").split(",").each.with_index(1) do |param, j|
@@ -96,7 +96,7 @@ def main
 			## 使われているか確認
 			next unless child.css(".devsite-nav-icon-wrapper").first.nil?
 			puts "### #{child.text.strip}"
-			completions[child.text.strip] = create_contents("#{DOC_URL}#{child.text.strip.downcase}")
+			completions.update(create_contents("#{DOC_URL}#{child.text.strip.downcase}"))
 			puts ""
 		end
 	end
